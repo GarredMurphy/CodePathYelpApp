@@ -17,6 +17,13 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 120
+        
+        
+        let searchBar = UISearchBar()
+        searchBar.sizeToFit()
+        navigationItem.titleView = searchBar
         Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in
             
                 self.businesses = businesses
@@ -27,7 +34,6 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
                         print(business.address!)
                     }
                 }
-            
             }
         )
         
@@ -56,7 +62,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Business Cell", for: indexPath) as! BusinessCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "BusinessCell", for: indexPath) as! BusinessCell
         
         cell.business = businesses[indexPath.row]
         return cell
